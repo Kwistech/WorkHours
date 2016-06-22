@@ -5,14 +5,26 @@ from WorkHours.files.functions import *
 
 
 class App:
+    """App for WorkHours."""
 
     def __init__(self, conn, root):
+        """Initiate App with sqlite3 database and tkinter root (Tk()).
+
+        Args:
+            conn (sqlite3.Connection): Connection to hours.db file.
+            root (tkinter.Tk): Root for tkinter.
+        """
         self.conn = conn
         self.root = root
 
         self.interface(self.root)
 
     def interface(self, root):
+        """Set tkinter interface for App.
+
+        Args:
+            root (tkinter.Tk): Root for tkinter.
+        """
         main_label = Label(root, text="Enter work hours below:")
         main_label.grid(row=0, column=0, columnspan=3, pady=5)
 
@@ -41,7 +53,7 @@ class App:
                              command=lambda: self.open())
         open_button.grid(row=2, column=3, pady=5)
 
-        user_info = [time_entry1, time_entry2, hour_entry]
+        user_info = [time_entry1, time_entry2, hour_entry]  # for user info
 
         submit_button = Button(root, text="Submit",
                                command=lambda: self.set_info(user_info))
@@ -49,9 +61,18 @@ class App:
 
     @staticmethod
     def open():
+        """Open internet browser and go to http://sqliteonline.com/.
+
+        Used for viewing the entries inside hours.db.
+        """
         open_new("http://sqliteonline.com/")
 
     def set_info(self, user_info):
+        """Get and format info to be inserted into hours.db hours table.
+
+         Args:
+             user_info (list): Contains Entry widgets from self.interface.
+        """
         user_info_str = [x.get() for x in user_info]
         times = "{} - {}".format(user_info_str[0], user_info_str[1])
         hours = user_info_str[2]
@@ -63,6 +84,7 @@ class App:
 
 
 def main():
+    """Connect to hours.db and run App with specified settings."""
     conn = create_conn()
     create_table(conn)
 
