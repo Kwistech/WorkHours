@@ -37,11 +37,14 @@ class App:
         total_hrs_label = Label(root, text="Hours:")
         total_hrs_label.grid(row=2, column=0)
 
+        memo_label = Label(root, text="Memo:")
+        memo_label.grid(row=3, column=0, pady=10, sticky="N")
+
         copyright_label = Label(root, text="© 2016 Kwistech")
-        copyright_label.grid(row=3, column=0, columnspan=2, pady=5, sticky="S")
+        copyright_label.grid(row=4, column=0, columnspan=2, pady=5, sticky="W")
 
         time_entry1 = Entry(root, width=6, justify="center")
-        time_entry1.grid(row=1, column=1)
+        time_entry1.grid(row=1, column=1, pady=5)
 
         time_entry2 = Entry(root, width=6, justify="center")
         time_entry2.grid(row=1, column=3)
@@ -49,15 +52,18 @@ class App:
         hour_entry = Entry(root, width=6, justify="center")
         hour_entry.grid(row=2, column=1)
 
+        memo_entry = Entry(root, width=20)
+        memo_entry.grid(row=3, column=1, columnspan=3, pady=12, sticky="W")
+
         open_button = Button(root, text="Open",
                              command=lambda: self.open())
-        open_button.grid(row=2, column=3, pady=5)
+        open_button.grid(row=4, column=2, padx=5, pady=5)
 
-        user_info = [time_entry1, time_entry2, hour_entry]  # for user info
+        user_info = [time_entry1, time_entry2, hour_entry, memo_entry]
 
         submit_button = Button(root, text="Submit",
                                command=lambda: self.set_info(user_info))
-        submit_button.grid(row=3, column=3, padx=5)
+        submit_button.grid(row=4, column=3, padx=5)
 
     @staticmethod
     def open():
@@ -74,10 +80,11 @@ class App:
              user_info (list): Contains Entry widgets from self.interface.
         """
         user_info_str = [x.get() for x in user_info]
+        num_entries = select_all_len(self.conn)
         times = "{} - {}".format(user_info_str[0], user_info_str[1])
         hours = user_info_str[2]
-        num_entries = select_all_len(self.conn)
-        insert_row(self.conn, num_entries, times, hours)
+        memo = user_info_str[3]
+        insert_row(self.conn, num_entries, times, hours, memo)
 
         for entry in user_info:
             entry.delete(first=0, last=139)  # Deletes text in Entry widgets.
