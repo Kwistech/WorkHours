@@ -1,6 +1,6 @@
 # WorkHours
 
-WorkHours v.1.0.0
+WorkHours v.1.0.0 (Python 3.5)
 
 WorkHours is a desktop application that allows you to keep track of your work hours.
 
