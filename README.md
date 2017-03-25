@@ -12,7 +12,7 @@ Check the project's [Wiki](https://github.com/Kwistech/WorkHours/wiki) for more 
 
   From the program's root directory, double-click `main.py`
 
-##How to Use
+## How to Use
 
 The below image is the GUI for WorkHours:
 
